@@ -1,7 +1,5 @@
 package com.gmail.alexander.toptenapplications.parsers;
 
-import android.util.Log;
-
 import com.gmail.alexander.toptenapplications.models.FeedEntry;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -18,7 +16,7 @@ import java.util.List;
  *
  * @author Alexander Vladimirov
  *         <alexandervladimirov1902@gmail.com>
- *             This is the feed`s parser from xml.
+ *         This is the feed`s parser from xml.
  */
 
 public class FeedParser {
@@ -31,6 +29,7 @@ public class FeedParser {
 
     /**
      * Gets all Feed Entries
+     *
      * @return collection of Feed Entries.
      */
     public List<FeedEntry> getFeedEntries() {
@@ -39,6 +38,7 @@ public class FeedParser {
 
     /**
      * Parsing logic
+     *
      * @param xmlData The xml data from resource.
      * @return
      */
@@ -57,8 +57,7 @@ public class FeedParser {
                 String tagName = xmlPullParser.getName();
                 switch (eventType) {
                     case XmlPullParser.START_TAG:
-                        Log.d(TAG, "parse: Starting tag for " + tagName);
-                        if("entry".equalsIgnoreCase(tagName)) {
+                        if ("entry".equalsIgnoreCase(tagName)) {
                             inEntry = true;
                             currentRecord = new FeedEntry();
                         }
@@ -68,20 +67,19 @@ public class FeedParser {
                         break;
 
                     case XmlPullParser.END_TAG:
-                        Log.d(TAG, "parse: Ending tag for " + tagName);
-                        if(inEntry) {
-                            if("entry".equalsIgnoreCase(tagName)) {
+                        if (inEntry) {
+                            if ("entry".equalsIgnoreCase(tagName)) {
                                 feedEntries.add(currentRecord);
                                 inEntry = false;
-                            } else if("name".equalsIgnoreCase(tagName)) {
+                            } else if ("name".equalsIgnoreCase(tagName)) {
                                 currentRecord.setName(textValue);
-                            } else if("artist".equalsIgnoreCase(tagName)) {
+                            } else if ("artist".equalsIgnoreCase(tagName)) {
                                 currentRecord.setArtist(textValue);
-                            } else if("releaseDate".equalsIgnoreCase(tagName)) {
+                            } else if ("releaseDate".equalsIgnoreCase(tagName)) {
                                 currentRecord.setReleaseDate(textValue);
-                            } else if("summary".equalsIgnoreCase(tagName)) {
+                            } else if ("summary".equalsIgnoreCase(tagName)) {
                                 currentRecord.setSummary(textValue);
-                            } else if("image".equalsIgnoreCase(tagName)) {
+                            } else if ("image".equalsIgnoreCase(tagName)) {
                                 currentRecord.setImageURL(textValue);
                             }
                         }
@@ -90,10 +88,6 @@ public class FeedParser {
                         //noting else to do.
                 }
                 eventType = xmlPullParser.next();
-            }
-            for (FeedEntry eachApp: feedEntries) {
-                Log.d(TAG, "*********************");
-                Log.d(TAG, eachApp.toString());
             }
         } catch (XmlPullParserException e) {
             e.printStackTrace();

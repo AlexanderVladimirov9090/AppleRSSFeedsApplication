@@ -14,7 +14,6 @@ import com.gmail.alexander.toptenapplications.incomedata.DownloadData;
  *
  * @author Alexander Vladimirov
  *         <alexandervladimirov1902@gmail.com>
- *
  */
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -27,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Starting point of the application.
+     *
      * @param savedInstanceState is used to retrieve saved data.
      */
     @Override
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listApps = (ListView) findViewById(R.id.xmlListView);
-        if(savedInstanceState !=null){
+        if (savedInstanceState != null) {
             feedsURL = (String) savedInstanceState.getSerializable(STATE_UTL);
             feedLimit = (int) savedInstanceState.getSerializable(STATE_LIMIT);
         }
@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Logic that creates the menu.
+     *
      * @param menu that is going to be displayed to the user.
      * @return
      */
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This is the item menu choose method.
+     *
      * @param item picked item from the menu.
      * @return
      */
@@ -100,29 +102,27 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Saves Feeds url and feed limit.
+     *
      * @param outState
      */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(STATE_UTL , feedsURL);
-        outState.putSerializable(STATE_LIMIT,feedLimit);
+        outState.putSerializable(STATE_UTL, feedsURL);
+        outState.putSerializable(STATE_LIMIT, feedLimit);
         super.onSaveInstanceState(outState);
     }
 
     /**
      * Download data from given url.
+     *
      * @param url
      */
     private void downloadUrl(String url) {
         if (!url.equals(feedCachedUrl)) {
-            Log.d(TAG, "downloadUrl: Starts");
             DownloadData downloadData = new DownloadData(MainActivity.this, R.layout.list_item, listApps);
             downloadData.execute(url);
             feedCachedUrl = url;
-            Log.d(TAG, "downloadUrl: Ends");
 
-        } else {
-            Log.d(TAG, "downloadUrl: URL not changed");
         }
     }
 }

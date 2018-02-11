@@ -41,7 +41,6 @@ public class DownloadData extends AsyncTask<String, Void, String> {
      */
     @Override
     protected void onPostExecute(String s) {
-        Log.d(TAG, "onPostExecute: parameter is:" + s);
         FeedParser feedParser = new FeedParser();
         feedParser.parse(s);
         FeedAdapter feedAdapter = new FeedAdapter(context, R.layout.list_record, feedParser.getFeedEntries());
@@ -55,12 +54,7 @@ public class DownloadData extends AsyncTask<String, Void, String> {
      */
     @Override
     protected String doInBackground(String... strings) {
-        Log.d(TAG, "doInBackground: Starts with: " + strings[0]);
-        String rssFeed = downloadXML(strings[0]);
-        if (rssFeed == null) {
-            Log.e(TAG, "doInBackground: Error Downloading");
-        }
-        return rssFeed;
+        return downloadXML(strings[0]);
     }
 
     /**
