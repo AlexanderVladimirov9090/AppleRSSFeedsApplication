@@ -8,6 +8,7 @@ import android.widget.ListView;
 import com.gmail.alexander.toptenapplications.MainActivity;
 import com.gmail.alexander.toptenapplications.R;
 import com.gmail.alexander.toptenapplications.adapters.FeedAdapter;
+import com.gmail.alexander.toptenapplications.models.FeedEntry;
 import com.gmail.alexander.toptenapplications.parsers.FeedParser;
 
 import java.io.BufferedReader;
@@ -43,7 +44,7 @@ public class DownloadData extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String s) {
         FeedParser feedParser = new FeedParser();
         feedParser.parse(s);
-        FeedAdapter feedAdapter = new FeedAdapter(context, R.layout.list_record, feedParser.getFeedEntries());
+        FeedAdapter<FeedEntry> feedAdapter = new FeedAdapter<>(context, R.layout.list_record, feedParser.getFeedEntries());
         listApps.setAdapter(feedAdapter);
     }
 

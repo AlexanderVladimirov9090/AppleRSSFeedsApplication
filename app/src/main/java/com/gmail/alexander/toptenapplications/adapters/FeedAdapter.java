@@ -22,14 +22,14 @@ import java.util.List;
  *             Adapter patern to connect instance from FeedEntry class to the UI.
  */
 
-public class FeedAdapter extends ArrayAdapter{
+public class FeedAdapter <T extends FeedEntry> extends ArrayAdapter{
     private static final String TAG = "FeedAdapter";
     private final int layoutResource;
     private final LayoutInflater layoutInflater;
-    private List<FeedEntry> applications;
+    private List<T> applications;
 
 
-    public FeedAdapter(@NonNull Context context, int resource, List<FeedEntry> applications) {
+    public FeedAdapter(@NonNull Context context, int resource, List<T> applications) {
         super(context, resource);
         this.layoutResource = resource;
         this.layoutInflater = LayoutInflater.from(context);
@@ -59,7 +59,7 @@ public class FeedAdapter extends ArrayAdapter{
         TextView tvName = (TextView) view.findViewById(R.id.tvName);
         TextView tvArtist = (TextView) view.findViewById(R.id.tvArtist);
         TextView tvSummary = (TextView) view.findViewById(R.id.tvSummary);
-        FeedEntry currentApp = applications.get(position);
+       T currentApp = applications.get(position);
 
         tvName.setText(currentApp.getName());
         tvArtist.setText(currentApp.getArtist());
